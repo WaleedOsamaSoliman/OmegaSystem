@@ -1,0 +1,23 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+#root {
+  position: absolute;
+  inset: 0;
+  direction: rtl !important;
+  overflow: auto;
+}
+
+#root #footer {
+  min-height: 40px;
+}
+#root #header {
+}
+#root #container {
+  height: 100%;
+}
+#root #menu * {
+  /* float : unset */
+}
