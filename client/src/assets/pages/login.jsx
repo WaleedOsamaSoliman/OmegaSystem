@@ -1,6 +1,8 @@
 import "@css/login.css";
 import { Form, ButtonToolbar, Button, Schema, Loader } from "rsuite";
 import { useState } from "react";
+import axios from "axios";
+
 const { StringType } = Schema.Types;
 const model = Schema.Model({
   username: StringType().isRequired("ادخل اسم المستخدم"),
@@ -8,8 +10,8 @@ const model = Schema.Model({
 });
 
 const App = function () {
-  const [credentials, setCredentials] = useState({});
-  const [loading, setLoading] = useState(true);
+  const [disableSubmit, setDisableSubmit] = useState(false);
+  const [loading, setLoading] = useState(false);
   return (
     <div className="container">
       {loading ? (
@@ -27,8 +29,26 @@ const App = function () {
       <span>أوميجا لإدارة الصيدليات</span>
       <Form
         model={model}
-        onSubmit={(e) => {
-          setCredentials(e);
+        onSubmit={async (e) => {
+          setDisableSubmit(true);
+          setLoading(true);
+          const res = await axios.post("/api/v1/account/login", e);
+          console.log(res.data);
+          switch (res.data.state) {
+            case true:
+              console.log("Logged in succesffuly");
+              break;
+            case false:
+              console.log("Incorrect Credentials");
+              break;
+            default:
+              console.log("Error !!! ");
+              break;
+          }
+          setLoading(false);
+          setTimeout(() => {
+            setDisableSubmit(false);
+          }, 1000);
         }}
       >
         <Form.Group controlId="username">
@@ -43,8 +63,13 @@ const App = function () {
 
         <Form.Group>
           <ButtonToolbar>
-            <Button type={"submit"} appearance="primary" style={{ flex: 1 }}>
-              Submit
+            <Button
+              disabled={disableSubmit}
+              type={"submit"}
+              appearance="primary"
+              style={{ flex: 1 }}
+            >
+              تسجيل الدخول
             </Button>
           </ButtonToolbar>
         </Form.Group>

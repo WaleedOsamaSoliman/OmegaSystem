@@ -7,11 +7,11 @@ const config = {
     },
   },
   database: {
-    name: "omega_system",
+    name: "test",
     host: "localhost",
     port: 3306,
     user: "omega",
-    pass: "omegaisthebest",
+    pass: "123123",
   },
 };
 module.exports = config;

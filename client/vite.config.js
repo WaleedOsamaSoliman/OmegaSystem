@@ -16,7 +16,4 @@ export default defineConfig({
       "@pages": path.resolve("./", "src", "assets", "pages"),
     },
   },
-  build: {
-    base: "./",
-  },
 });
