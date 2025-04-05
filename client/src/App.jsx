@@ -7,6 +7,7 @@ import LoginPage from "@pages/login.jsx";
 import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import { Container, Content, Footer, Divider } from "rsuite";
+import Logout from "./assets/components/logout";
 
 export default function App() {
   const Context = mainContext;
@@ -35,6 +36,7 @@ export default function App() {
   const LoggedComponents = () => {
     return (
       <>
+        {preload.modals.logout ? <Logout /> : null}
         <Menu />
         <Content style={{ padding: 10 }}>
           <Router />

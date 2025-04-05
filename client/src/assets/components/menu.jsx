@@ -1,6 +1,8 @@
 import { Nav, Dropdown } from "rsuite";
-
+import { useContext } from "react";
+import mainContext from "../context/main";
 export default function Menu() {
+  const [, setMainContext] = useContext(mainContext);
   const minWidth = 200;
   const Navbar = () => {
     return (
@@ -17,7 +19,18 @@ export default function Menu() {
               <Dropdown.Item shortcut="⌘ P"> صلاحيات المستخدم</Dropdown.Item>
             </Dropdown.Menu>
             <Dropdown.Item shortcut="CTRL + A">كشكول النواقص</Dropdown.Item>
-            <Dropdown.Item shortcut="CTRL + C">تسجيل الخروج</Dropdown.Item>
+            <Dropdown.Item
+              onClick={async () => {
+                setMainContext((e) => {
+                  const updated = JSON.parse(JSON.stringify(e));
+                  updated.modals.logout = true;
+                  return updated;
+                });
+              }}
+              shortcut="CTRL + C"
+            >
+              تسجيل الخروج
+            </Dropdown.Item>
             <Dropdown.Item shortcut="CTRL + X"> اغلاق البرنامج</Dropdown.Item>
           </Dropdown>
           <Dropdown
