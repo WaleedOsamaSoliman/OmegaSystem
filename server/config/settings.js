@@ -7,6 +7,7 @@ const config = {
     },
   },
   database: {
+    type: "mysql",
     name: "test",
     host: "localhost",
     port: 3306,

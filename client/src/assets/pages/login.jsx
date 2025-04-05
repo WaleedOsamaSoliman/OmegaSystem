@@ -1,7 +1,10 @@
 import "@css/login.css";
 import { Form, ButtonToolbar, Button, Schema, Loader } from "rsuite";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import axios from "axios";
+import { useToaster, Message } from "rsuite";
+
+import mainContext from "@context/main";
 
 const { StringType } = Schema.Types;
 const model = Schema.Model({
@@ -12,6 +15,9 @@ const model = Schema.Model({
 const App = function () {
   const [disableSubmit, setDisableSubmit] = useState(false);
   const [loading, setLoading] = useState(false);
+  const toaster = useToaster();
+  const [, setMainPreload] = useContext(mainContext);
+
   return (
     <div className="container">
       {loading ? (
@@ -30,25 +36,103 @@ const App = function () {
       <Form
         model={model}
         onSubmit={async (e) => {
+          let messageBox;
+
           setDisableSubmit(true);
           setLoading(true);
-          const res = await axios.post("/api/v1/account/login", e);
-          console.log(res.data);
-          switch (res.data.state) {
-            case true:
-              console.log("Logged in succesffuly");
-              break;
-            case false:
-              console.log("Incorrect Credentials");
-              break;
-            default:
-              console.log("Error !!! ");
-              break;
-          }
-          setLoading(false);
-          setTimeout(() => {
-            setDisableSubmit(false);
-          }, 1000);
+          axios
+            .post("/api/v1/account/login", e)
+            .then((res) => {
+              console.log(res.data);
+              switch (res.data.state) {
+                case true:
+                  messageBox = (
+                    <Message showIcon type={"success"} closable>
+                      <strong>
+                        تم تسجيل الدخول بنجــاح , لحظات و سيتم تحويلك !
+                      </strong>
+                    </Message>
+                  );
+
+                  console.log("Logged in succesffuly");
+
+                  //  save the login data in the main COntext to use this info later in any part of applcation
+                  setMainPreload((e) => {
+                    const updated = JSON.parse(JSON.stringify(e));
+                    updated.is_logged = true;
+                    updated.user = res.user;
+                    return updated;
+                  });
+
+                  break;
+                case false:
+                  if (res.data.reason === "username.not.found") {
+                    messageBox = (
+                      <Message showIcon type={"warning"} closable>
+                        <strong>لا يوجد مستخدم بهذا الاسم</strong>
+                      </Message>
+                    );
+                  } else if (res.data.reason === "password.wrong") {
+                    messageBox = (
+                      <Message showIcon type={"warning"} closable>
+                        <strong>كلمة المرور خاطئة</strong>
+                      </Message>
+                    );
+                  } else if (res.data.reason === "already.logged") {
+                    messageBox = (
+                      <Message showIcon type={"warning"} closable>
+                        <strong>
+                          لقد قمت بتسجيل الدخول ب الفعل سيتم تحويلك الأن{" "}
+                        </strong>
+                      </Message>
+                    );
+                    setTimeout(() => {
+                      window.location.reload();
+                    }, 2000);
+                  } else {
+                    messageBox = (
+                      <Message showIcon type={"warning"} closable>
+                        <strong>
+                          خطأ غير معروف في الخادم الخلفي اثناء تسجيل الدخول
+                        </strong>
+                      </Message>
+                    );
+                  }
+
+                  console.log("Incorrect Credentials");
+                  break;
+
+                default:
+                  console.log("Error !!! ");
+                  messageBox = (
+                    <Message showIcon type={"error"} closable>
+                      <strong>
+                        خطأ أثناء تنفيذ الطلب في قاعدة البيانات . من فضلك تأكد
+                        من الاتصال بقاعدة البيانات وحاول لاحقا
+                      </strong>
+                    </Message>
+                  );
+                  break;
+              }
+            })
+            .catch((err) => {
+              console.log(err);
+              messageBox = (
+                <Message type="error" showIcon closable>
+                  <strong>خطأ اثناء ارسال الطلب الي قاعدة البيانات</strong>
+                </Message>
+              );
+            })
+            .finally(() => {
+              setLoading(false);
+              setTimeout(() => {
+                setDisableSubmit(false);
+              }, 1000);
+              toaster.push(messageBox, {
+                placement: "topCenter",
+                duration: 5000,
+              });
+            });
         }}
       >
         <Form.Group controlId="username">

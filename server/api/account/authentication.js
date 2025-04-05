@@ -41,20 +41,11 @@ class Authentication {
       };
     }
 
-    const user = checkPass[0];
+    const user = checkPass[0] || {};
 
     return {
       state: true,
-
-      user: {
-        id: user.id || "?",
-        nickname: user.nickname || "?",
-        name: user.name || "?",
-        email: user.email || "?",
-        phone: user.phone || "?",
-        permessions: user.permessions || [],
-        role: user.role || "?",
-      },
+      user: { ...user, password: null, loginAt: new Date() },
     };
   }
 }
