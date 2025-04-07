@@ -5,6 +5,10 @@ const permessions = [
       "this permession responsible for showing the user his info like Phone , Email , Total Sales , etc ...",
   },
   {
+    name: "show.user.permessions",
+    description: "see all permessions of custom user ",
+  },
+  {
     name: "show.missing.book",
     description:
       "this permession is responsible for showing u the missing drug that u marked it , to order it later ...",
@@ -48,6 +52,10 @@ const permessions = [
       "Allow user to copy the database to avoid loss of data [usually for admin user]",
   },
   {
+    name: "add.new.product",
+    description: "allow user to add new product [usually for admin users]",
+  },
+  {
     name: "edit.product.amount",
     description:
       "allow user to edit amount of custom product usually for admin user",
@@ -73,6 +81,14 @@ const permessions = [
   {
     name: "save.pending.invoice",
     description: "allow user to save the pending invoices ",
+  },
+  {
+    name: "delete.pending.invoice",
+    description: "allow user to delete custom  pending invoice",
+  },
+  {
+    name: "money.transfer",
+    description: "finish the shift and transfer money ",
   },
   // buys permessions
   {

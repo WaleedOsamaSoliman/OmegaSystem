@@ -2,7 +2,21 @@ import { Nav, Dropdown } from "rsuite";
 import { useContext } from "react";
 import mainContext from "../context/main";
 export default function Menu() {
-  const [, setMainContext] = useContext(mainContext);
+  const [mainState, setMainContext] = useContext(mainContext);
+  const userPermessions =
+    mainState?.user?.permessions?.toLowerCase().split(",") || [];
+
+  console.log("user permessions : ", userPermessions);
+  const hasPermession = (permessionName) => {
+    if (
+      userPermessions.includes(permessionName.toLowerCase()) ||
+      userPermessions.includes("*")
+    )
+      return true;
+
+    return false;
+  };
+
   const minWidth = 200;
   const Navbar = () => {
     return (
@@ -15,10 +29,19 @@ export default function Menu() {
             style={{ direction: "rtl" }}
           >
             <Dropdown.Menu style={{ right: "100%" }} title="المستخدم الحالي">
-              <Dropdown.Item shortcut="⌘ ⇧ S"> بيانات المستخدم</Dropdown.Item>
-              <Dropdown.Item shortcut="⌘ P"> صلاحيات المستخدم</Dropdown.Item>
+              {hasPermession("show.user.info") ? (
+                <Dropdown.Item shortcut="⌘ ⇧ S"> بيانات المستخدم</Dropdown.Item>
+              ) : (
+                false
+              )}
+
+              {hasPermession("show.user.permessions") ? (
+                <Dropdown.Item shortcut="⌘ P"> صلاحيات المستخدم</Dropdown.Item>
+              ) : null}
             </Dropdown.Menu>
-            <Dropdown.Item shortcut="CTRL + A">كشكول النواقص</Dropdown.Item>
+            {hasPermession("show.missing.book") ? (
+              <Dropdown.Item shortcut="CTRL + A">كشكول النواقص</Dropdown.Item>
+            ) : null}
             <Dropdown.Item
               onClick={async () => {
                 setMainContext((e) => {
@@ -40,21 +63,42 @@ export default function Menu() {
             style={{ direction: "rtl" }}
           >
             <Dropdown.Menu style={{ right: "100%" }} title="المستخدمين">
-              <Dropdown.Item shortcut="⌘ ⇧ S"> قائمة المستخدمين</Dropdown.Item>
-              <Dropdown.Item shortcut="⌘ P">تعديل بيانات مستخدم</Dropdown.Item>
-              <Dropdown.Item shortcut="⌘ ⇧ S">إضـافه مستخدم جديد</Dropdown.Item>
-              <Dropdown.Item shortcut="⌘ ,">الغاء تفعيل مستخدم</Dropdown.Item>
-              <Dropdown.Item shortcut="⌘ ,">تفعيل مستخدم</Dropdown.Item>
-            </Dropdown.Menu>
-            <Dropdown.Item shortcut="CTRL + SHIFT + U">
-              {" "}
-              تحديث البرنامج
-            </Dropdown.Item>
+              {hasPermession("show.users.list") ? (
+                <Dropdown.Item shortcut="⌘ ⇧ S">
+                  {" "}
+                  قائمة المستخدمين
+                </Dropdown.Item>
+              ) : null}
 
-            <Dropdown.Item shortcut="⌘ N">
-              {" "}
-              نسخ احتياطي لقاعدة البيانات
-            </Dropdown.Item>
+              {hasPermession("edit.user.info") ? (
+                <Dropdown.Item shortcut="⌘ ⇧ S">
+                  {" "}
+                  تعديل بيانات المستخدمين
+                </Dropdown.Item>
+              ) : null}
+              {hasPermession("add.new.user") ? (
+                <Dropdown.Item shortcut="⌘ ⇧ S">
+                  إضـافه مستخدم جديد
+                </Dropdown.Item>
+              ) : null}
+              {hasPermession("deactivate.user") ? (
+                <Dropdown.Item shortcut="⌘ ,">الغاء تفعيل مستخدم</Dropdown.Item>
+              ) : null}
+              {hasPermession("activate.user") ? (
+                <Dropdown.Item shortcut="⌘ ,">تفعيل مستخدم</Dropdown.Item>
+              ) : null}
+            </Dropdown.Menu>
+            {hasPermession("update.app") ? (
+              <Dropdown.Item shortcut="CTRL + SHIFT + U">
+                تحديث البرنامج
+              </Dropdown.Item>
+            ) : null}
+
+            {hasPermession("copy.database") ? (
+              <Dropdown.Item shortcut="⌘ N">
+                نسخ احتياطي لقاعدة البيانات
+              </Dropdown.Item>
+            ) : null}
           </Dropdown>
           <Dropdown
             title="المخازن"
@@ -62,13 +106,21 @@ export default function Menu() {
             placement={"bottomEnd"}
             style={{ direction: "rtl" }}
           >
-            <Dropdown.Item shortcut="⌘ ⇧ E">إضافة صنف جديد</Dropdown.Item>
+            {hasPermession("add.new.product") ? (
+              <Dropdown.Item shortcut="⌘ ⇧ E">إضافة صنف جديد</Dropdown.Item>
+            ) : null}
 
-            <Dropdown.Item shortcut="⌘ ⇧ E"> جرد وضبط كميات صنف</Dropdown.Item>
-            <Dropdown.Item shortcut="⌘ ⇧ E">
-              تعديل تاريخ صلاحية صنف
-            </Dropdown.Item>
-            <Dropdown.Item shortcut="⌘ ⇧ E">تعديل بيانات صنف</Dropdown.Item>
+            {hasPermession("edit.product.amount") ? (
+              <Dropdown.Item shortcut="⌘ ⇧ E">جرد وضبط كميات صنف</Dropdown.Item>
+            ) : null}
+            {hasPermession("edit.product.expire") ? (
+              <Dropdown.Item shortcut="⌘ ⇧ E">
+                تعديل تاريخ صلاحية صنف
+              </Dropdown.Item>
+            ) : null}
+            {hasPermession("edit.product.info") ? (
+              <Dropdown.Item shortcut="⌘ ⇧ E">تعديل بيانات صنف</Dropdown.Item>
+            ) : null}
           </Dropdown>
           <Dropdown
             title="مبيعات"
@@ -76,11 +128,24 @@ export default function Menu() {
             placement={"bottomEnd"}
             style={{ direction: "rtl" }}
           >
-            <Dropdown.Item shortcut="⌘ ⇧ S">فاتورة مبيعات جديده</Dropdown.Item>
-            <Dropdown.Item shortcut="⌘ P">مرتجع مبيعات من فاتورة</Dropdown.Item>
-            <Dropdown.Item shortcut="⌘ ⇧ E">
-              اقفال الفواتير المعلقه
-            </Dropdown.Item>
+            {hasPermession("make.sales") ? (
+              <Dropdown.Item shortcut="⌘ ⇧ S">
+                فاتورة مبيعات جديده
+              </Dropdown.Item>
+            ) : null}
+            {hasPermession("return.sales") ? (
+              <Dropdown.Item shortcut="⌘ P">
+                مرتجع مبيعات من فاتورة
+              </Dropdown.Item>
+            ) : null}
+            {hasPermession("save.pending.invoice") ? (
+              <Dropdown.Item shortcut="⌘ ⇧ E">
+                اقفال الفواتير المعلقه
+              </Dropdown.Item>
+            ) : null}
+            {hasPermession("money.transfer") ? (
+              <Dropdown.Item shortcut="⌘ ⇧ E">تسليم درجة النقدية</Dropdown.Item>
+            ) : null}
           </Dropdown>
 
           <Dropdown
@@ -89,8 +154,12 @@ export default function Menu() {
             placement={"bottomEnd"}
             style={{ direction: "rtl" }}
           >
-            <Dropdown.Item shortcut="⌘ ⇧ S">فاتورة شراء جديده</Dropdown.Item>
-            <Dropdown.Item shortcut="⌘ P">مرتجع شراء من فاتورة</Dropdown.Item>
+            {hasPermession("make.buys") ? (
+              <Dropdown.Item shortcut="⌘ ⇧ S">فاتورة شراء جديده</Dropdown.Item>
+            ) : null}
+            {hasPermession("return.buys") ? (
+              <Dropdown.Item shortcut="⌘ P">مرتجع شراء من فاتورة</Dropdown.Item>
+            ) : null}
           </Dropdown>
 
           <Dropdown
@@ -99,32 +168,64 @@ export default function Menu() {
             placement={"bottomEnd"}
             style={{ direction: "rtl" }}
           >
-            <Dropdown.Item shortcut="⌘ ⇧ S">تقرير مبيعات من فتره</Dropdown.Item>
-            <Dropdown.Item shortcut="⌘ P">
-              تقرير مرتجع مبيعات من فتره
-            </Dropdown.Item>
-            <Dropdown.Item shortcut="⌘ ⇧ E">
-              تقرير توريدات من فتره
-            </Dropdown.Item>
-            <Dropdown.Item shortcut="⌘ ⇧ E">
-              تقرير مصروفات من فتره
-            </Dropdown.Item>
+            {hasPermession("view.sales.report.period") ? (
+              <Dropdown.Item shortcut="⌘ ⇧ S">
+                تقرير مبيعات من فتره
+              </Dropdown.Item>
+            ) : null}
+            {hasPermession("view.return.sales.report.period") ? (
+              <Dropdown.Item shortcut="⌘ P">
+                تقرير مرتجع مبيعات من فتره
+              </Dropdown.Item>
+            ) : null}
 
-            <Dropdown.Item shortcut="⌘ P">تقرير تسليم الدرج</Dropdown.Item>
-            <Dropdown.Item shortcut="⌘ ⇧ E">
-              تقرير حضور وانصراف الموظفين
-            </Dropdown.Item>
-            <Dropdown.Item shortcut="⌘ ⇧ E">تقرير حركة بيع صنف</Dropdown.Item>
-            <Dropdown.Item shortcut="⌘ ⇧ E">
-              تقرير مبيعات موظف خلال فتره
-            </Dropdown.Item>
-            <Dropdown.Item shortcut="⌘ ⇧ E">
-              تقرير خصومات خلال فتره{" "}
-            </Dropdown.Item>
-            <Dropdown.Item shortcut="⌘ ⇧ E">تقرير ربح المؤسسه</Dropdown.Item>
-            <Dropdown.Item shortcut="⌘ ⇧ E">
-              تقرير أصناف منتهية الصلاحيه من فتره
-            </Dropdown.Item>
+            {hasPermession("view.cash.supplies.report") ? (
+              <Dropdown.Item shortcut="⌘ ⇧ E">
+                تقرير توريدات من فتره
+              </Dropdown.Item>
+            ) : null}
+
+            {hasPermession("view.expenses.report") ? (
+              <Dropdown.Item shortcut="⌘ ⇧ E">
+                تقرير مصروفات من فتره
+              </Dropdown.Item>
+            ) : null}
+
+            {hasPermession("view.cash.deliveries") ? (
+              <Dropdown.Item shortcut="⌘ P">تقرير تسليم الدرج</Dropdown.Item>
+            ) : null}
+
+            {hasPermession("view.attendence.report") ? (
+              <Dropdown.Item shortcut="⌘ ⇧ E">
+                تقرير حضور وانصراف الموظفين
+              </Dropdown.Item>
+            ) : null}
+
+            {hasPermession("view.product.sales.report") ? (
+              <Dropdown.Item shortcut="⌘ ⇧ E">تقرير حركة بيع صنف</Dropdown.Item>
+            ) : null}
+
+            {hasPermession("view.employee.sales.report") ? (
+              <Dropdown.Item shortcut="⌘ ⇧ E">
+                تقرير مبيعات موظف خلال فتره
+              </Dropdown.Item>
+            ) : null}
+
+            {hasPermession("view.discount.report") ? (
+              <Dropdown.Item shortcut="⌘ ⇧ E">
+                تقرير خصومات خلال فتره
+              </Dropdown.Item>
+            ) : null}
+
+            {hasPermession("view.organization.profit.report") ? (
+              <Dropdown.Item shortcut="⌘ ⇧ E">تقرير ربح المؤسسه</Dropdown.Item>
+            ) : null}
+
+            {hasPermession("view.expire.items.report") ? (
+              <Dropdown.Item shortcut="⌘ ⇧ E">
+                تقرير أصناف منتهية الصلاحيه من فتره
+              </Dropdown.Item>
+            ) : null}
           </Dropdown>
 
           <Dropdown

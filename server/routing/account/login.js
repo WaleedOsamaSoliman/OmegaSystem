@@ -12,7 +12,7 @@ const login = async (req, res) => {
     if (result.state) {
       req.session.is_logged = true;
       req.session.user = result.user;
-      res.cookie("is_logged", true);
+      req.session.organizationInfo = result.organizationInfo;
 
       // req.cookies.set("is_logged", true);
     }
