@@ -5,6 +5,7 @@ const preload = {
   modals: {
     logout: false,
   },
+  organization: {},
 };
 Object.freeze(preload);
 

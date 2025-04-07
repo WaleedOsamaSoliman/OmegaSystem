@@ -3,6 +3,11 @@
   margin: 0;
   padding: 0;
 }
+:root {
+  --high-light-color-green: #4caf50;
+  --high-light-color-blue: #0a5dc2;
+  --high-light-color-red: rgb(168, 12, 12);
+}
 #root {
   position: absolute;
   inset: 0;
@@ -11,7 +16,32 @@
 }
 
 #root #footer {
-  min-height: 40px;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10;
+  border-top: 1px solid gray;
+}
+#root #footer .date {
+  color: var(--high-light-color-blue);
+  font-weight: bold;
+  font-size: 17px;
+  margin-left: auto;
+}
+#root #footer .localhost {
+  color: var(--high-light-color-red);
+  font-weight: bold;
+}
+#root #footer .username .name {
+  color: var(--high-light-color-green);
+  font-weight: bold;
+}
+#root #footer .organization {
+  color: var(--high-light-color-blue);
+}
+#root #footer .branch {
+  color: var(--high-light-color-blue);
 }
 #root #header {
   /* background-color: red; */

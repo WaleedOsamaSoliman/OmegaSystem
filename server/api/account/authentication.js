@@ -42,10 +42,15 @@ class Authentication {
     }
 
     const user = checkPass[0] || {};
+    const organization = await Database.query(
+      "SELECT organization as name , branch , phone , manager from configurations",
+      []
+    );
 
     return {
       state: true,
       user: { ...user, password: null, loginAt: new Date() },
+      organizationInfo: organization[0] || {},
     };
   }
 }

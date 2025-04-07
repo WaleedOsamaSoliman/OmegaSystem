@@ -44,6 +44,7 @@ export default function Menu() {
               <Dropdown.Item shortcut="⌘ P">تعديل بيانات مستخدم</Dropdown.Item>
               <Dropdown.Item shortcut="⌘ ⇧ S">إضـافه مستخدم جديد</Dropdown.Item>
               <Dropdown.Item shortcut="⌘ ,">الغاء تفعيل مستخدم</Dropdown.Item>
+              <Dropdown.Item shortcut="⌘ ,">تفعيل مستخدم</Dropdown.Item>
             </Dropdown.Menu>
             <Dropdown.Item shortcut="CTRL + SHIFT + U">
               {" "}
@@ -61,6 +62,8 @@ export default function Menu() {
             placement={"bottomEnd"}
             style={{ direction: "rtl" }}
           >
+            <Dropdown.Item shortcut="⌘ ⇧ E">إضافة صنف جديد</Dropdown.Item>
+
             <Dropdown.Item shortcut="⌘ ⇧ E"> جرد وضبط كميات صنف</Dropdown.Item>
             <Dropdown.Item shortcut="⌘ ⇧ E">
               تعديل تاريخ صلاحية صنف
@@ -133,6 +136,7 @@ export default function Menu() {
             <Dropdown.Item shortcut="⌘ ⇧ E"> قائمة العملاء </Dropdown.Item>
             <Dropdown.Item shortcut="⌘ ⇧ E"> إضافه عميل</Dropdown.Item>
             <Dropdown.Item shortcut="⌘ ⇧ E"> تعديل بيانات عميل</Dropdown.Item>
+            <Dropdown.Item shortcut="⌘ ⇧ E"> حذف عميل</Dropdown.Item>
           </Dropdown>
 
           <Dropdown

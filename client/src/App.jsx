@@ -41,7 +41,7 @@ export default function App() {
         <Content style={{ padding: 10 }}>
           <Router />
         </Content>
-        <Divider />
+
         <Footer id="footer">
           <FooterComponent />
         </Footer>

@@ -60,7 +60,8 @@ const App = function () {
                   setMainPreload((e) => {
                     const updated = JSON.parse(JSON.stringify(e));
                     updated.is_logged = true;
-                    updated.user = res.user;
+                    updated.user = res.data.user;
+                    updated.organization = res.data.organizationInfo;
                     return updated;
                   });
 
