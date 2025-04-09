@@ -101,6 +101,32 @@ const tables = {
       type: DataTypes.TEXT,
       defaultValue: "no description",
     },
+    title: {
+      type: DataTypes.STRING,
+      unique: true,
+      allowNull: false,
+    },
+    class: {
+      type: DataTypes.STRING,
+      defaultValue: "general",
+    },
+    subclass: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      defaultValue: "",
+    },
+    required: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0,
+    },
+    inmenu: {
+      type: DataTypes.INTEGER,
+      defaultValue: 1,
+    },
+    href: {
+      type: DataTypes.STRING,
+      defaultValue: "#",
+    },
   },
   configurations: {
     id: {
@@ -123,6 +149,27 @@ const tables = {
     manager: {
       type: DataTypes.STRING,
       defaultValue: "",
+    },
+  },
+  branches: {
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+    },
+    name: {
+      type: DataTypes.STRING,
+      unique: true,
+      allowNull: false,
+    },
+    ip: {
+      type: DataTypes.STRING,
+      unique: true,
+      allowNull: false,
+    },
+    active: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: true,
     },
   },
 };

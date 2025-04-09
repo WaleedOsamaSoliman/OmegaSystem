@@ -71,7 +71,8 @@ export default function App() {
   return (
     <Context.Provider value={[preload, setPreload]}>
       <Container id="container">
-        {preload.is_logged ? <LoggedComponents /> : <LoginPage />}
+        {/* {preload.is_logged ? <LoggedComponents /> : <LoginPage />} */}
+        <LoggedComponents />{" "}
       </Container>
     </Context.Provider>
   );

@@ -234,10 +234,18 @@ export default function Menu() {
             placement={"bottomEnd"}
             style={{ direction: "rtl" }}
           >
-            <Dropdown.Item shortcut="⌘ ⇧ E"> قائمة العملاء </Dropdown.Item>
-            <Dropdown.Item shortcut="⌘ ⇧ E"> إضافه عميل</Dropdown.Item>
-            <Dropdown.Item shortcut="⌘ ⇧ E"> تعديل بيانات عميل</Dropdown.Item>
-            <Dropdown.Item shortcut="⌘ ⇧ E"> حذف عميل</Dropdown.Item>
+            {hasPermession("view.customers.list") ? (
+              <Dropdown.Item shortcut="⌘ ⇧ E"> قائمة العملاء </Dropdown.Item>
+            ) : null}
+            {hasPermession("add.new.customer") ? (
+              <Dropdown.Item shortcut="⌘ ⇧ E"> إضافه عميل</Dropdown.Item>
+            ) : null}
+            {hasPermession("edit.customer.info") ? (
+              <Dropdown.Item shortcut="⌘ ⇧ E"> تعديل بيانات عميل</Dropdown.Item>
+            ) : null}
+            {hasPermession("remove.customer") ? (
+              <Dropdown.Item shortcut="⌘ ⇧ E"> حذف عميل</Dropdown.Item>
+            ) : null}
           </Dropdown>
 
           <Dropdown
@@ -246,10 +254,18 @@ export default function Menu() {
             placement={"bottomEnd"}
             style={{ direction: "rtl" }}
           >
-            <Dropdown.Item shortcut="⌘ ⇧ E"> قائمة الموردين</Dropdown.Item>
-            <Dropdown.Item shortcut="⌘ ⇧ E">فواتير شراء مورد</Dropdown.Item>
-            <Dropdown.Item shortcut="⌘ ⇧ E"> أصناف شراء من مورد</Dropdown.Item>
-            <Dropdown.Item shortcut="⌘ ⇧ E"> حساب مورد</Dropdown.Item>
+            {hasPermession("view.supploers.list") ? (
+              <Dropdown.Item shortcut="⌘ ⇧ E"> قائمة الموردين</Dropdown.Item>
+            ) : null}
+            {hasPermession("view.suppliers.pruchase.invoices") ? (
+              <Dropdown.Item shortcut="⌘ ⇧ E">فواتير شراء مورد</Dropdown.Item>
+            ) : null}
+            {hasPermession("view.supplier.products") ? (
+              <Dropdown.Item shortcut="⌘ ⇧ E">أصناف شراء من مورد</Dropdown.Item>
+            ) : null}
+            {hasPermession("view.supplier.balance") ? (
+              <Dropdown.Item shortcut="⌘ ⇧ E"> حساب مورد</Dropdown.Item>
+            ) : null}
           </Dropdown>
 
           <Dropdown
@@ -258,8 +274,12 @@ export default function Menu() {
             placement={"bottomEnd"}
             style={{ direction: "rtl" }}
           >
-            <Dropdown.Item shortcut="⌘ ⇧ E"> توريد نقديه</Dropdown.Item>
-            <Dropdown.Item shortcut="⌘ ⇧ E"> صرف نقديه</Dropdown.Item>
+            {hasPermession("manage.cash.inflow") ? (
+              <Dropdown.Item shortcut="⌘ ⇧ E"> توريد نقديه</Dropdown.Item>
+            ) : null}
+            {hasPermession("manage.cash.outflow") ? (
+              <Dropdown.Item shortcut="⌘ ⇧ E"> صرف نقديه</Dropdown.Item>
+            ) : null}
           </Dropdown>
 
           <Dropdown
@@ -268,8 +288,12 @@ export default function Menu() {
             placement={"bottomEnd"}
             style={{ direction: "rtl" }}
           >
-            <Dropdown.Item shortcut="⌘ ⇧ E">تسجيل حضور</Dropdown.Item>
-            <Dropdown.Item shortcut="⌘ ⇧ E"> تسجيل انصراف</Dropdown.Item>
+            {hasPermession("record.employee.attendence.in") ? (
+              <Dropdown.Item shortcut="⌘ ⇧ E">تسجيل حضور</Dropdown.Item>
+            ) : null}
+            {hasPermession("record.employee.attendence.out") ? (
+              <Dropdown.Item shortcut="⌘ ⇧ E"> تسجيل انصراف</Dropdown.Item>
+            ) : null}
           </Dropdown>
 
           <Dropdown
@@ -278,13 +302,19 @@ export default function Menu() {
             placement={"bottomEnd"}
             style={{ direction: "rtl" }}
           >
-            <Dropdown.Item shortcut="⌘ ⇧ E">
-              إقتراح الطلب التلقائي
-            </Dropdown.Item>
-            <Dropdown.Item shortcut="⌘ ⇧ E">بحث عن أفضل سعر </Dropdown.Item>
-            <Dropdown.Item shortcut="⌘ ⇧ E">
-              مقارنة اصناف شركات ومخازن
-            </Dropdown.Item>
+            {hasPermession("manage.auto.order") ? (
+              <Dropdown.Item shortcut="⌘ ⇧ E">
+                إقتراح الطلب التلقائي
+              </Dropdown.Item>
+            ) : null}
+            {hasPermession("search.best.offer") ? (
+              <Dropdown.Item shortcut="⌘ ⇧ E">بحث عن أفضل سعر </Dropdown.Item>
+            ) : null}
+            {hasPermession("comapre.suppliers.product") ? (
+              <Dropdown.Item shortcut="⌘ ⇧ E">
+                مقارنة اصناف شركات ومخازن
+              </Dropdown.Item>
+            ) : null}
           </Dropdown>
 
           <Dropdown

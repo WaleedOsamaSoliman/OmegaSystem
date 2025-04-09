@@ -14,6 +14,7 @@ export default defineConfig({
       "@context": path.resolve("./", "src", "assets", "context"),
       "@preload": path.resolve("./", "src", "assets", "preloads"),
       "@pages": path.resolve("./", "src", "assets", "pages"),
+      "@actions": path.resolve("./", "src", "assets", "actions"),
     },
   },
 });

@@ -19,7 +19,7 @@ const App = function () {
   const [, setMainPreload] = useContext(mainContext);
 
   return (
-    <div className="container">
+    <div className="container" id="container">
       {loading ? (
         <Loader
           style={{ zIndex: 99 }}

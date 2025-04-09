@@ -7,6 +7,7 @@
   --high-light-color-green: #4caf50;
   --high-light-color-blue: #0a5dc2;
   --high-light-color-red: rgb(168, 12, 12);
+  --ess-color: teal;
 }
 #root {
   position: absolute;
@@ -73,4 +74,26 @@
 .rs-dropdown-item.rs-dropdown-item-submenu .rs-dropdown-item-toggle {
   padding-right: 12px;
   padding-left: 27px !important;
+}
+
+.page-title {
+  /* background: red; */
+  width: 100%;
+  font-size: 20px;
+  font-weight: bold;
+  padding: 5px 10px;
+  text-align: center;
+  color: var(--ess-color);
+}
+
+div.container {
+  height: 100%;
+  padding: 5px 10px;
+}
+
+div.container-inner {
+  flex: 1;
+  width: 100%;
+  direction: rtl;
+  height: 100%;
 }
