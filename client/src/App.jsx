@@ -32,6 +32,7 @@ export default function App() {
               updated.is_logged = true;
               updated.user = r.data.user;
               updated.organization = r.data.organization;
+              updated.permessions = r.data.permessions;
               return updated;
             });
 
@@ -71,8 +72,8 @@ export default function App() {
   return (
     <Context.Provider value={[preload, setPreload]}>
       <Container id="container">
-        {/* {preload.is_logged ? <LoggedComponents /> : <LoginPage />} */}
-        <LoggedComponents />{" "}
+        {preload.is_logged ? <LoggedComponents /> : <LoginPage />} 
+        {/* <LoggedComponents /> */}
       </Container>
     </Context.Provider>
   );

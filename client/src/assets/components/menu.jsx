@@ -3,19 +3,36 @@ import { useContext } from "react";
 import mainContext from "../context/main";
 export default function Menu() {
   const [mainState, setMainContext] = useContext(mainContext);
-  const userPermessions =
-    mainState?.user?.permessions?.toLowerCase().split(",") || [];
+  const userPermessions = mainState.permessions || [];
+  const permessions = userPermessions.map((item)=>{
 
-  console.log("user permessions : ", userPermessions);
-  const hasPermession = (permessionName) => {
-    if (
-      userPermessions.includes(permessionName.toLowerCase()) ||
-      userPermessions.includes("*")
+    return (item.name)
+  })
+
+  const hasPermession = (permession) => {
+   return permessions.includes(permession)
+  }
+
+
+  const CurrentUserMenu = ()=>{
+    const  permessions = userPermessions.filter((item)=>{
+      return item.subclass = "current.user";
+    })
+
+    console.log(permessions)
+   const tabs = permessions.map((item)=>{
+    return (
+      <Dropdown.Item key = {item.name} shortcut={item.shortcut}>{item.title}</Dropdown.Item>
     )
-      return true;
+   })
 
-    return false;
-  };
+   return tabs
+  }
+
+
+
+  // create the static main menu items 
+  
 
   const minWidth = 200;
   const Navbar = () => {
@@ -29,6 +46,9 @@ export default function Menu() {
             style={{ direction: "rtl" }}
           >
             <Dropdown.Menu style={{ right: "100%" }} title="المستخدم الحالي">
+              {CurrentUserMenu().map((item)=>{
+                return item
+              })}
               {hasPermession("show.user.info") ? (
                 <Dropdown.Item shortcut="⌘ ⇧ S"> بيانات المستخدم</Dropdown.Item>
               ) : (
