@@ -34,6 +34,21 @@ class Sequelize {
       });
     });
 
+    // تعريف العلاقات بين الجداول
+    const accounts = this.connection.model("accounts");
+    const permessions = this.connection.model("permessions");
+    
+    // تعريف العلاقة Many-to-Many
+    accounts.belongsToMany(permessions, {
+      through: "UserPermessions",
+      as: "userPermessions"
+    });
+    
+    permessions.belongsToMany(accounts, {
+      through: "UserPermessions",
+      as: "permessionUsers"
+    });
+
     console.log("All tables has been defined ...");
 
     await this.start();
@@ -42,7 +57,7 @@ class Sequelize {
   async start() {
     // sync the schema to apply the edits
     await this.connection
-      .sync({ force: true })
+      .sync({ force: true , alter : true })
       .then(() => {
         console.log("Syncing dONe ");
       })
@@ -69,8 +84,25 @@ class Sequelize {
     await permessions.bulkCreate(permessionsList);
 
     await configurations.create({});
+
+    // get all permessions ids 
+    const all_permessions =(await permessions.findAll()).map((item)=>{
+      return item.id;
+    });
+    
+    
+      // العلاقة تم تعريفها مسبقاً قبل sync
+    const adminAccount  =  await accounts.findOne({
+      where : {username : "admin"}
+    })
+    //  add all Permessions to the admin account 
+    await adminAccount.addUserPermession(all_permessions);
+    
+
   }
 }
 
 const test = new Sequelize();
 test.defineTables();
+
+module.exports = test

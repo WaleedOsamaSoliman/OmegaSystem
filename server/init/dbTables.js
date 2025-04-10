@@ -25,11 +25,6 @@ const tables = {
         len: [3, 50],
       },
     },
-    permessions: {
-      type: DataTypes.TEXT,
-      allowNull: false,
-      defaultValue: "?",
-    },
     active: {
       type: DataTypes.BOOLEAN,
       defaultValue: 1,

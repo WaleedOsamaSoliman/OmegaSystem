@@ -41,7 +41,16 @@ class Authentication {
       };
     }
 
-    const user = checkPass[0] || {};
+    const user = checkPass[0] || {}; 
+    console.log(user)
+    const userPermessions = await Database.query(
+      `SELECT p.* 
+       FROM UserPermessions up 
+       JOIN permessions p ON up.permessionId = p.id 
+       WHERE up.accountId = ?`,
+      [user.id]
+    );
+    
     const organization = await Database.query(
       "SELECT organization as name , branch , phone , manager from configurations",
       []
@@ -50,6 +59,7 @@ class Authentication {
     return {
       state: true,
       user: { ...user, password: null, loginAt: new Date() },
+      permessions: userPermessions,
       organizationInfo: organization[0] || {},
     };
   }
