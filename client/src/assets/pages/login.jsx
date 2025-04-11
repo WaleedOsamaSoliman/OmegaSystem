@@ -62,6 +62,7 @@ const App = function () {
                     updated.is_logged = true;
                     updated.user = res.data.user;
                     updated.organization = res.data.organizationInfo;
+                    updated.permessions = res.data.permessions;
                     return updated;
                   });
 

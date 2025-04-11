@@ -4,6 +4,7 @@ const checkAuth = (req, res) => {
       state: true,
       user: req.session.user,
       organization: req.session.organizationInfo,
+      permessions: req.session.permessions,
     });
   }
   return res.send({

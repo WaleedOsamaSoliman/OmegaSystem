@@ -13,6 +13,7 @@ const login = async (req, res) => {
       req.session.is_logged = true;
       req.session.user = result.user;
       req.session.organizationInfo = result.organizationInfo;
+      req.session.permessions = result.permessions;
 
       // req.cookies.set("is_logged", true);
     }

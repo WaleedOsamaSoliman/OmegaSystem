@@ -122,6 +122,10 @@ const tables = {
       type: DataTypes.STRING,
       defaultValue: "#",
     },
+    shortcut : {
+      type : DataTypes.STRING, 
+      defaultValue : ""
+    }
   },
   configurations: {
     id: {
