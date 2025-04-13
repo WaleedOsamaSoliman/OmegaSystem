@@ -125,6 +125,18 @@ const tables = {
     shortcut : {
       type : DataTypes.STRING, 
       defaultValue : ""
+    },
+    isAdmin : {
+      type : DataTypes.INTEGER,
+      defaultValue : 0
+    },
+    isSuperVisor : { 
+      type : DataTypes.INTEGER,
+      default : 0,
+    },
+    isNormalUser : {
+      type : DataTypes.INTEGER,
+      default : 1
     }
   },
   configurations: {

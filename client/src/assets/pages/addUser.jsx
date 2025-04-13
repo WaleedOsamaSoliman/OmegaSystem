@@ -23,6 +23,7 @@ export default function AddUser() {
         <div className="container-inner">
           <Tabs
             appearance="pills"
+            style = {{height : "100%" , flex:1}}
             activeKey={activeTab}
             onSelect={(e) => {
               setActiveTab(e);
@@ -36,7 +37,7 @@ export default function AddUser() {
               <LoginInfoTab />
             </Tabs.Tab>
 
-            <Tabs.Tab eventKey={3} title="الصلاحيات">
+            <Tabs.Tab eventKey={3} title="الصلاحيات" style = {{height : "100%"}}>
               <PermessionsTab />
             </Tabs.Tab>
           </Tabs>
@@ -62,6 +63,7 @@ export default function AddUser() {
                 "phone",
                 "username",
                 "password",
+                "confirm-password"
               ]);
               const res = confirming.confirm();
               if (!res.state) {

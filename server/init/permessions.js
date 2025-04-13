@@ -26,6 +26,9 @@ const permessions = [
     class: classes.general,
     subclass: subClasses.currentUser,
     href: "user.info",
+    isAdmin : 1,
+    isSuperVisor : 1,
+    isNormalUser : 1
   },
   {
     name: "show.user.permessions",
@@ -35,6 +38,9 @@ const permessions = [
     class: classes.general,
     subclass: subClasses.currentUser,
     href: "user.permessions",
+    isAdmin : 1,
+    isSuperVisor : 1,
+    isNormalUser : 1
   },
   {
     name: "show.missing.book",
@@ -43,6 +49,9 @@ const permessions = [
     title: "كشكول النواقص",
     class: classes.general,
     href: "missing.book",
+    isAdmin : 1,
+    isSuperVisor : 1,
+    isNormalUser : 1
   },
   // users permessions
   {
@@ -53,6 +62,9 @@ const permessions = [
     class: classes.admin,
     subclass: subClasses.users,
     href: "users.list",
+    isAdmin : 1,
+    isSuperVisor : 1,
+    isNormalUser : 0,
   },
   {
     name: "edit.user.info",
@@ -62,6 +74,10 @@ const permessions = [
     class: classes.admin,
     subclass: subClasses.users,
     href: "edit.user",
+    isAdmin : 1,
+    isSuperVisor : 0,
+    isNormalUser : 0,
+
   },
   {
     name: "add.new.user",
@@ -71,6 +87,9 @@ const permessions = [
     class: classes.admin,
     subclass: subClasses.users,
     href: "add.user",
+    isAdmin : 1,
+    isSuperVisor : 0,
+    isNormalUser : 0,
   },
   {
     name: "deactivate.user",
@@ -81,6 +100,9 @@ const permessions = [
     subclass: subClasses.users,
     href: "deactivate.user",
     isMenu: 0,
+    isAdmin : 1,
+    isSuperVisor : 1,
+    isNormalUser : 0,
   },
   {
     name: "activate.user",
@@ -91,6 +113,9 @@ const permessions = [
     subclass: subClasses.users,
     href: "activate.user",
     isMenu: 0,
+    isAdmin : 1,
+    isSuperVisor : 1,
+    isNormalUser : 0,
   },
   // app permessions
   {
@@ -101,6 +126,9 @@ const permessions = [
     class: classes.admin,
     subclass: subClasses.app,
     href: "update.app",
+    isAdmin : 1,
+    isSuperVisor : 1,
+    isNormalUser : 0,
   },
 
   // edit product permessions
@@ -112,6 +140,9 @@ const permessions = [
     class: classes.admin,
     subclass: subClasses.app,
     href: "copy.database",
+    isAdmin : 1,
+    isSuperVisor : 0,
+    isNormalUser : 0,
   },
   {
     name: "add.new.product",
@@ -119,6 +150,9 @@ const permessions = [
     title: "إضافة صنف جديد",
     class: classes.inventory,
     href: "add.new.product",
+    isAdmin : 1,
+    isSuperVisor : 1,
+    isNormalUser : 0,
   },
   {
     name: "edit.product.amount",
@@ -127,6 +161,9 @@ const permessions = [
     title: "تعديل كمية صنف",
     class: classes.inventory,
     href: "edit.product.amount",
+    isAdmin : 1,
+    isSuperVisor : 1,
+    isNormalUser : 0,
   },
   {
     name: "edit.product.expire",
@@ -134,6 +171,9 @@ const permessions = [
     title: "تعديل تاريخ صلاحية صنف",
     class: classes.inventory,
     href: "edit.product.expire",
+    isAdmin : 1,
+    isSuperVisor : 1,
+    isNormalUser : 0,
   },
   {
     name: "edit.product.info",
@@ -142,6 +182,9 @@ const permessions = [
     title: "تعديل بيانات صنف",
     class: classes.inventory,
     href: "edit.product.info",
+    isAdmin : 1,
+    isSuperVisor : 1,
+    isNormalUser : 0,
   },
   // sells permessions
   {
@@ -150,6 +193,9 @@ const permessions = [
     title: "فاتورة مبيعات جديده",
     class: classes.sales,
     href: "sell",
+    isAdmin : 1,
+    isSuperVisor : 1,
+    isNormalUser : 1,
   },
   {
     name: "return.sales",
@@ -157,6 +203,9 @@ const permessions = [
     title: "مرتجع مبيعات من فاتورة",
     class: classes.sales,
     href: "return.sales",
+    isAdmin : 1,
+    isSuperVisor : 1,
+    isNormalUser : 0,
   },
   {
     name: "view.pending.invoices",
@@ -164,6 +213,9 @@ const permessions = [
     title: "اظهار الفواتير المعلقه ",
     class: classes.sales,
     href: "pending.invoices",
+    isAdmin : 1,
+    isSuperVisor : 1,
+    isNormalUser : 1,
   },
   {
     name: "save.pending.invoices",
@@ -172,6 +224,9 @@ const permessions = [
     class: classes.sales,
     href: "save.pending.inVoices",
     ismenu: 0,
+    isAdmin : 1,
+    isSuperVisor : 1,
+    isNormalUser : 0,
   },
   {
     name: "delete.pending.invoices",
@@ -180,6 +235,9 @@ const permessions = [
     class: classes.sales,
     href: "delete.pending.nvoices",
     ismenu: 0,
+    isAdmin : 1,
+    isSuperVisor : 1,
+    isNormalUser : 0,
   },
   {
     name: "money.transfer",
@@ -187,6 +245,9 @@ const permessions = [
     title: "تسليم الدرج",
     class: classes.sales,
     href: "money.transfer",
+    isAdmin : 1,
+    isSuperVisor : 1,
+    isNormalUser : 0,
   },
   // buys permessions
   {
@@ -195,6 +256,9 @@ const permessions = [
     title: "فاتورة شراء جديده",
     class: classes.buys,
     href: "buy",
+    isAdmin : 1,
+    isSuperVisor : 1,
+    isNormalUser : 0,
   },
   {
     name: "return.buys",
@@ -202,6 +266,9 @@ const permessions = [
     title: "مرتجع شراء من فاتورة",
     class: classes.buys,
     href: "return.buy",
+    isAdmin : 1,
+    isSuperVisor : 1,
+    isNormalUser : 0,
   },
   // reports  permessions
   {
@@ -210,6 +277,9 @@ const permessions = [
     title: "تقرير مبيعات من فتره",
     class: classes.reports,
     href: "sales.report",
+    isAdmin : 1,
+    isSuperVisor : 1,
+    isNormalUser : 1,
   },
   {
     name: "view.return.sales.report.period",
@@ -218,6 +288,9 @@ const permessions = [
     title: "تقرير المرتجعات من فتره",
     class: classes.reports,
     href: "return.sales.report",
+    isAdmin : 1,
+    isSuperVisor : 1,
+    isNormalUser : 1,
   },
   {
     name: "view.cash.supplies.report",
@@ -226,6 +299,9 @@ const permessions = [
     title: "تقارير التوريدات خلال فتره ",
     class: classes.reports,
     href: "cash.supplies.report",
+    isAdmin : 1,
+    isSuperVisor : 1,
+    isNormalUser : 0,
   },
   {
     name: "view.expenses.report",
@@ -234,6 +310,9 @@ const permessions = [
     title: "تقارير المصروفات خلال فتره",
     class: classes.reports,
     href: "expenses.report",
+    isAdmin : 1,
+    isSuperVisor : 1,
+    isNormalUser : 0,
   },
   {
     name: "view.cash.deliveries",
@@ -242,6 +321,9 @@ const permessions = [
     title: "تقارير تسليمات الدرج",
     class: classes.reports,
     href: "cash.deliveries.report",
+    isAdmin : 1,
+    isSuperVisor : 1,
+    isNormalUser : 0,
   },
   {
     name: "view.attendence.report",
@@ -249,6 +331,9 @@ const permessions = [
     title: "تقارير حضور و انصراف الموظفين",
     class: classes.reports,
     href: "attendence.report",
+    isAdmin : 1,
+    isSuperVisor : 1,
+    isNormalUser : 0,
   },
   {
     name: "view.product.sales.report",
@@ -257,6 +342,9 @@ const permessions = [
     title: "تقرير حركة بيع صنف معين ",
     class: classes.reports,
     href: "product.sales.report",
+    isAdmin : 1,
+    isSuperVisor : 1,
+    isNormalUser : 0,
   },
   {
     name: "view.employee.sales.report",
@@ -265,6 +353,9 @@ const permessions = [
     title: "تقارير مبيعات موظف خلال فتره",
     class: classes.reports,
     href: "employee.sales.report",
+    isAdmin : 1,
+    isSuperVisor : 0,
+    isNormalUser : 0,
   },
 
   {
@@ -274,6 +365,9 @@ const permessions = [
     title: "تقرير خصومات خلال فتره",
     class: classes.reports,
     href: "discount.report",
+    isAdmin : 1,
+    isSuperVisor : 0,
+    isNormalUser : 0,
   },
   {
     name: "view.organization.profit.report",
@@ -282,6 +376,9 @@ const permessions = [
     title: "تقرير ربح المؤسسه ",
     class: classes.reports,
     href: "organization.profil.report",
+    isAdmin : 1,
+    isSuperVisor : 0,
+    isNormalUser : 0,
   },
   {
     name: "view.expire.items.report",
@@ -290,6 +387,9 @@ const permessions = [
     title: "تقرير أصناف منتهية الصلاحية خلال فتره",
     class: classes.reports,
     href: "expire.items.report",
+    isAdmin : 1,
+    isSuperVisor : 1,
+    isNormalUser : 0,
   },
   // customers permessions
   {
@@ -299,6 +399,9 @@ const permessions = [
     title: "قائمة العملاء",
     class: classes.customers,
     href: "customers.list",
+    isAdmin : 1,
+    isSuperVisor : 1,
+    isNormalUser : 0,
   },
   {
     name: "add.new.customer",
@@ -306,6 +409,9 @@ const permessions = [
     title: "إضافة عميل جديد",
     class: classes.customers,
     href: "add.customer",
+    isAdmin : 1,
+    isSuperVisor : 1,
+    isNormalUser : 0,
   },
   {
     name: "edit.customer.info",
@@ -313,6 +419,9 @@ const permessions = [
     title: "تعديل بيانات عميل",
     class: classes.customers,
     href: "edit.customer.info",
+    isAdmin : 1,
+    isSuperVisor : 0,
+    isNormalUser : 0,
   },
   {
     name: "remove.customer",
@@ -320,6 +429,9 @@ const permessions = [
     title: "حذف عميل",
     class: classes.customers,
     href: "remove.customer",
+    isAdmin : 1,
+    isSuperVisor : 0,
+    isNormalUser : 0,
   },
   //  suppliers permessions
   {
@@ -328,6 +440,9 @@ const permessions = [
     title: "قائمة الموردين",
     class: classes.suppliers,
     href: "suppliers.list",
+    isAdmin : 1,
+    isSuperVisor : 1,
+    isNormalUser : 0,
   },
   {
     name: "view.suppliers.pruchase.invoices",
@@ -336,6 +451,9 @@ const permessions = [
     title: "فواتير شراء من مورد",
     class: classes.suppliers,
     href: "suppliers.pruchase.invoices",
+    isAdmin : 1,
+    isSuperVisor : 1,
+    isNormalUser : 0,
   },
   {
     name: "view.supplier.products",
@@ -344,6 +462,9 @@ const permessions = [
     title: "أصناف شراء من مورد",
     class: classes.suppliers,
     href: "supplier.products",
+    isAdmin : 1,
+    isSuperVisor : 1,
+    isNormalUser : 0,
   },
   {
     name: "view.supplier.balance",
@@ -351,6 +472,9 @@ const permessions = [
     title: "حساب مورد",
     class: classes.suppliers,
     href: "supplier.balance",
+    isAdmin : 1,
+    isSuperVisor : 1,
+    isNormalUser : 0,
   },
   // cash in/out flow permessions
   {
@@ -359,6 +483,9 @@ const permessions = [
     title: "توريد  نقديه",
     class: classes.cashFlow,
     href: "cash.inflow",
+    isAdmin : 1,
+    isSuperVisor : 1,
+    isNormalUser : 0,
   },
   {
     name: "manage.cash.outflow",
@@ -366,6 +493,9 @@ const permessions = [
     title: "صرف نقديه",
     class: classes.cashFlow,
     href: "cash.outflow",
+    isAdmin : 1,
+    isSuperVisor : 1,
+    isNormalUser : 0,
   },
 
   // employee permessions
@@ -375,6 +505,9 @@ const permessions = [
     title: "تسجيل حضور",
     class: classes.employee,
     href: "employee.attendence.in",
+    isAdmin : 1,
+    isSuperVisor : 1,
+    isNormalUser : 1,
   },
   {
     name: "record.employee.attendence.out",
@@ -382,6 +515,9 @@ const permessions = [
     title: "تسجيل انصراف",
     class: classes.employee,
     href: "employee.attendence.out",
+    isAdmin : 1,
+    isSuperVisor : 1,
+    isNormalUser : 1,
   },
   // extre props permessions
   {
@@ -391,6 +527,9 @@ const permessions = [
     title: "إقتراح الطلب التلقائي",
     class: classes.others,
     href: "auto.order",
+    isAdmin : 1,
+    isSuperVisor : 1,
+    isNormalUser : 0,
   },
   {
     name: "search.best.offer",
@@ -399,6 +538,9 @@ const permessions = [
     class: classes.others,
     title: "بحث عن أفضل سعر",
     href: "search.best.offer",
+    isAdmin : 1,
+    isSuperVisor : 1,
+    isNormalUser : 0,
   },
   {
     name: "comapre.suppliers.product",
@@ -407,6 +549,9 @@ const permessions = [
     title: "مقارنة أصناف شركات ومخازن",
     class: classes.others,
     href: "compare.suppliers.products",
+    isAdmin : 1,
+    isSuperVisor : 1,
+    isNormalUser : 0,
   },
 ];
 

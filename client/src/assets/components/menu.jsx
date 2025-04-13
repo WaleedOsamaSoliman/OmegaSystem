@@ -1,4 +1,3 @@
-
 import CreateMenuTab from "./sub/createMenuTab"
 export default function Menu() {
 
@@ -23,7 +22,6 @@ export default function Menu() {
           <CreateMenuTab name = "employee" label = "موظفين" />
           <CreateMenuTab name = "others" label = "خصائص اضافيه" />
           <CreateMenuTab name = "app" label = "عن التطبيق"/>
-         
         </div>
       </>
     );
