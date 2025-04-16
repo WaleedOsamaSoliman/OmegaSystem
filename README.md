@@ -12,6 +12,7 @@ Install client Requirments
 ```bash
     cd ./client
     npm install
+    npm run build
 ```
     
 Install Server Requirments
@@ -24,8 +25,7 @@ Install Server Requirments
 Install SQL Server 
 -
 - download  the latest version of :
-      [Mariadb](#https://mariadb.org/download/)
-      and install it 
+- [Mariadb](#https://mariadb.org/download/)
 - install it 
 - run the server 
 
