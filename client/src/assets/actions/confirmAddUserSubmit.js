@@ -22,8 +22,17 @@ class Confirm {
     if (typeof r !== typeof undefined) {
       return {
         state: false,
+        reason : "field.required",
         field: r,
       };
+    }
+
+    // check password and confirm password 
+    if (this.data.password !== this.data.confirmPassword) { 
+      return {
+        state: false ,
+        reason : "password.not.match"
+      }
     }
     return {
       state: true,

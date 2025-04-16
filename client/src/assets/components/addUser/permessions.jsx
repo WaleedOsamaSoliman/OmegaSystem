@@ -1,7 +1,8 @@
-import { useEffect  , useState} from "react";
+import { useEffect  , useState , useContext} from "react";
 import { CheckTree, SelectPicker } from "rsuite";
 import axios from "axios"
 import {useToaster , Message} from "rsuite"
+import addUserContext from "@context/addUser.js"
 
 const titles = {
   general : "عامة",
@@ -21,6 +22,7 @@ const titles = {
 }
 
 const  App = () => {
+  const [addUserdata , setAddUserdata] = useContext(addUserContext)
   const [checkTreeData , setCheckTreeData]  =  useState([]);
   const [defaultValues , setDefaultValues] = useState([])
   const [permessions , setPermessions ] = useState([])
@@ -57,7 +59,8 @@ const  App = () => {
           
           const prototype = {}
           types.map((type)=>{
-            prototype[type] = {label : type , value :`all.${type}.permessions`  , children : []}
+            // prototype[type] = {label : type , value :`all.${type}.permessions`  , children : []}
+            prototype[type] = {label : type , value :`?`  , children : []}
 
           })
 
@@ -130,6 +133,12 @@ const  App = () => {
         })
       }
       setDefaultValues(values)
+      setAddUserdata((i)=>{
+
+        const updated = JSON.parse(JSON.stringify(i))
+        updated.permessions = values ;
+        return  updated;
+      })
     }, [role])
     
   return (
@@ -159,8 +168,15 @@ const  App = () => {
     <br />
     <div style = {{width : "100%" , direction :"ltr",  height : "100%" , backgroundColor : "#fff" , borderRadius : 5 ,flex:1 }}>
     <br/>
-    <CheckTree value = {[...defaultValues]} defaultExpandAll = {true} showIndentLine = {true} showIcon = {true} data={checkTreeData} searchable = {true} onChange = {(e)=>{
+    <CheckTree uncheckableItemValues = {['?']}value = {[...defaultValues]} defaultExpandAll = {true} showIndentLine = {true} showIcon = {true} data={checkTreeData} searchable = {true} onChange = {(e)=>{
       setDefaultValues(e)
+      setAddUserdata((i)=>{
+
+        const updated = JSON.parse(JSON.stringify(i))
+        updated.permessions = e ;
+        return  updated;
+      })
+     
     }} />
     </div>
     

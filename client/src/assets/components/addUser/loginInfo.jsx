@@ -46,7 +46,7 @@ export default function LoginInfo() {
           style={{ width: 200 }}
           placeholder={"*******"}
           onChange={(e) => {
-            setData({ ...data, cofirmPassword: e });
+            setData({ ...data, confirmPassword: e });
           }}
         />
         <Form.HelpText>مطلوب</Form.HelpText>
