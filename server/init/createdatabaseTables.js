@@ -40,12 +40,18 @@ class Sequelize {
     
     // تعريف العلاقة Many-to-Many
     accounts.belongsToMany(permessions, {
-      through: "UserPermessions",
+      through: {
+        model : "UserPermessions" , 
+        timestamps : false
+      },
       as: "userPermessions"
     });
     
     permessions.belongsToMany(accounts, {
-      through: "UserPermessions",
+      through: {
+        model : "UserPermessions" , 
+        timestamps : false
+      },
       as: "permessionUsers"
     });
 

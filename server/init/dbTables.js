@@ -32,32 +32,9 @@ const tables = {
     role: {
       type: DataTypes.STRING,
       allowNull: false,
-      defaultValue: "user",
+      defaultValue: "normal",
     },
-    email: {
-      type: DataTypes.STRING,
-      unique: true,
-      allowNull: false,
-      validate: {
-        isEmail: true,
-      },
-    },
-    gender: {
-      type: DataTypes.STRING,
-      defaultValue: "m",
-      validate: {
-        isIn: [["m", "f"]],
-      },
-    },
-    age: {
-      type: DataTypes.INTEGER,
-      defaultValue: 20,
-      validate: {
-        isInt: true,
-        min: 18,
-        max: 99,
-      },
-    },
+  
     creation_date: {
       type: DataTypes.DATE,
       defaultValue: S.NOW,
@@ -139,6 +116,31 @@ const tables = {
       default : 1
     }
   },
+  UserPermessions : {
+    id : {
+      primaryKey : true,
+      autoIncrement : true,
+      type : DataTypes.INTEGER
+    },
+    accountId : {
+      type : DataTypes.INTEGER,
+      references : {
+        model : "accounts",
+        key : "id"
+      },
+      onDelete : "CASCADE",
+      onUpdate : "CASCADE"
+    },
+    permessionId : {
+      type : DataTypes.INTEGER,
+      references : {
+        model : "permessions",
+        key : "id"
+      },
+      onDelete : "CASCADE",
+      onUpdate : "CASCADE"
+    }
+  },
   configurations: {
     id: {
       type: DataTypes.INTEGER,
@@ -183,5 +185,57 @@ const tables = {
       defaultValue: true,
     },
   },
+  usersInfo : {
+    id: { 
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      references: {
+        model: 'accounts',
+        key: 'id'
+      },
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE'
+    },
+    email: {
+      type: DataTypes.STRING,
+     
+    },
+    gender: {
+      type: DataTypes.STRING,
+      defaultValue: "m",
+      validate: {
+        isIn: [["m", "f"]],
+      },
+    },
+    age: {
+      type: DataTypes.INTEGER,
+      defaultValue: 20,
+      validate: {
+        isInt: true,
+        min: 18,
+        max: 99,
+      },
+    },
+    nationalId: {
+      type: DataTypes.STRING,
+      
+    },
+    graduation : {
+      type : DataTypes.STRING
+    },
+    address : { 
+      type : DataTypes.TEXT
+    },
+    birthDate : { 
+      type : DataTypes.DATE
+    },
+    socialState : {
+      type : DataTypes.STRING
+    },
+    phone : {
+      type  : DataTypes.STRING
+    }
+   
+  }
 };
 module.exports = tables;
