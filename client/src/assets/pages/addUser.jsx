@@ -13,11 +13,95 @@ import axios from "axios";
 
 export default function AddUser() {
   const [activeTab, setActiveTab] = useState(1);
-  const toaster = useToaster();
-  const [disableSaveBtn , setDisableSaveBtn] = useState(false)
+  const toaster = useToaster();  
   const [preload, setPreload] = useState(
     JSON.parse(JSON.stringify(preloadObj))
   );
+
+
+
+  const addUserHandle = ()=>{
+
+    const confirming = new Confirm(preload, [
+      "nickname",
+      "phone",
+      "username",
+      "password",
+      "confirm-password",
+      "permessions"
+    ]);
+    const res = confirming.confirm();
+    if (!res.state && res.reason === "field.required") { 
+          let field;
+          let switchToTab = 0
+          
+        switch (res.field) {
+          case "username":
+            field = "إسم المستخدم";
+            switchToTab = 2
+            break;
+          case "phone":
+            field = "رقم الهاتف";
+            switchToTab=1
+            break;
+            case  "password" : 
+            field = "كلمة المرور";
+            switchToTab=2
+            break;
+            case "confirm-password" : 
+            field = "تأكيد كلمة المرور";
+            switchToTab=2
+            break;
+
+          case "nickname":
+            field = "الاسم بالكامل";
+            switchToTab=1
+            break;
+
+          case "permessions" : 
+          field = "الصلاحيات"
+          switchToTab=3
+          break
+
+          default:
+            field = res.field;
+            switchToTab = 1
+            break;
+        }
+         setActiveTab(switchToTab)
+          return toaster.push(<Notification type = "error" message = {`${field} مطلوب`} /> , {duration : 5000} )
+      }
+    if (!res.state && res.reason === "password.not.match")  { 
+      return toaster.push(<Notification type = "error" message = {`كلمة المرور غير متطابقة`} /> , {duration : 5000} )
+    }
+
+    
+
+    axios.post("/api/v1/account/add" , preload)
+    .then((res)=>{
+      console.log(res.data)
+      if (! res.data.state && res.data.reason === "username.exists") return toaster.push(<Notification type = "warning" message = {`اسم المستخدم موجود ب الفعل`} /> , {duration : 3000} )
+      if (! res.data.state && res.data.reason === "nickname.exists") return toaster.push(<Notification type = "warning" message = {`الاسم بالكامل موجود ب الفعل`} /> , {duration : 3000} )
+      if (res.data.state) {
+        // reset the preload
+        toaster.push(<Notification header = "تمت انشاء مستخدم جديد بنجــاح" category = "notification" type = "success" message = {`أهلا ومرحبا بك يا ${preload.nickname.split(" ")[0]} في أوميجــا سيستم` } /> , {duration : 3000} )
+        setPreload(JSON.parse(JSON.stringify(preloadObj)))
+        setActiveTab(1)
+        return
+      }
+
+      return toaster.push(<Notification type = "error" message = {res.data.reason} /> , {duration : 3000} )
+
+    })
+    .catch ((err)=>{
+        return toaster.push(<Notification type = "error" message = {err.toString()} /> )
+      })
+      .finally(()=>{
+      })
+    
+   
+  }
+
 
   return (
     <Context.Provider value={[preload, setPreload]}>
@@ -47,9 +131,7 @@ export default function AddUser() {
         </div>
         <ButtonGroup>
           <Button
-            onClick={() => {
-              window.location.reload();
-            }}
+            onClick={()=>{window.location.reload()}}
             style={{ width: 100 }}
             appearance={"primary"}
             color={"red"}
@@ -60,151 +142,8 @@ export default function AddUser() {
             style={{ width: 200 }}
             appearance={"primary"}
             color={"cyan"}
-            disabled ={disableSaveBtn}
-            onClick={() => {
-
-              setDisableSaveBtn(true)
-
-              setTimeout(()=>{
-                setDisableSaveBtn(false)
-
-              },1000)
-              console.log(">>pre load " , preload)
-              const confirming = new Confirm(preload, [
-                "nickname",
-                "phone",
-                "username",
-                "password",
-                "confirm-password",
-                "permessions"
-              ]);
-              const res = confirming.confirm();
-              if (!res.state) { 
-                if (res.reason === "field.required") { 
-                    let field;
-                  switch (res.field) {
-                    case "username":
-                      field = "إسم المستخدم";
-                      setActiveTab(2);
-                      console.log("active tab : ", activeTab);
-
-                      break;
-
-                    case "phone":
-                      field = "رقم الهاتف";
-                      setActiveTab(1);
-
-                      break;
-                    case "nickname":
-                      field = "الاسم بالكامل";
-                      setActiveTab(1);
-                      break;
-
-                    case "permessions" : 
-                    field = "الصلاحيات"
-                    setActiveTab(3);
-                    break
-
-                  
-                    default:
-                      field = res.field;
-                      break;
-                  }
-                  toaster.push(
-                    <Message
-                      style={{ width: 400, textAlign: "center" }}
-                      type={"error"}
-                      closable
-                      showIcon
-                    >
-                      <span>
-                        <strong style={{ color: "#252525", fontSize: 18 }}>
-                          {field}
-                        </strong>{" "}
-                        مطلوب !
-                      </span>
-                    </Message>,
-                    {
-                      placement: "topCenter",
-                      duration: 5000,
-                    }
-                  )
-                }else if (res.reason === "password.not.match")  { 
-                  toaster.push(
-                    <Message
-                      style={{ width: 400, textAlign: "center" }}
-                      type={"error"}
-                      closable
-                      showIcon
-                    >
-                      <span>
-                        <strong style={{ color: "#252525", fontSize: 18 }}>
-                          كلمة المرور
-                        </strong>{" "}
-                        غير مطابقة !
-                      </span>
-                    </Message>,
-                    {
-                      placement: "topCenter",
-                      duration: 5000,
-                    }
-                  )
-                }else { 
-                  // add more false conditions
-                  return false 
-                }
-              }else { 
-                axios.post("/api/v1/account/add" , preload)
-                .then((res)=>{
-                  console.log(res)
-                  if (! res.data.state)  { 
-                    let errMessage ;
-                    switch (res.data.reason) { 
-                      case "username.exists" :
-                        console.log("Hela");
-                        Notification({
-                          message : "اسم المستخدم موجود ب الفعل" , 
-                          type : "error"
-                        })  
-                        break;
-                        default :
-                        
-                          errMessage =  res.data.reason;
-                          console.log("Hela");
-                          Notification({
-                            message : errMessage , 
-                            type : "error"
-                          })
-                          break;
-
-                    }
-                  }
-                  if (res.data.state) { 
-                    const message =  <Message type="success"  showIcon header="تمت العملية بنجاح">
-                    <p>
-                     تم إنشــاء المستخدم بنـجــاح
-                    </p>
-                   
-                  </Message>
-                  toaster.push(message , {placement : "topCenter" , duration : 10000})
-                  }else { 
-                    const message =  <Message type="warning" bordered showIcon>
-                    <strong>تحذير!</strong> You can use the `Message` component to display a warning message.
-                  </Message>
-                  }
-                  toaster.push(message , {placement : "topCenter" , duration : 5000})
-
-                })
-                .catch ((err)=>{
-                 const errMessage =   <Message showIcon type="error">
-                 <strong>خطأ أثناء ارسال الطلب الي  الخادم الخلفي : !</strong> {err.toString()}
-               </Message>
-               toaster.push(errMessage , {placement : "topCenter" , duration : 5000})
-                })
-              }
-             
-            }}
-          >
+            // disabled ={disableSaveBtn}
+            onClick={()=>{addUserHandle()}}>
             حفظ
           </Button>
         </ButtonGroup>

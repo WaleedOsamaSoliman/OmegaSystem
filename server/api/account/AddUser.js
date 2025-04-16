@@ -107,7 +107,7 @@ class AddUser {
             await connection.query("COMMIT")
 
       
-        return res
+        return {state : true}
     }
 }
 
