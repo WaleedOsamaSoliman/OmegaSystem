@@ -25,8 +25,9 @@ class Sequelize {
   }
 
   async createDatabase() { 
+    let mainConnection  ;
     try { 
-      const mainConnection =  await mysql.createConnection({
+      mainConnection =  await mysql.createConnection({
         host : settings.database.host , 
         port : settings.database.port , 
         user : settings.database.user , 
@@ -34,11 +35,15 @@ class Sequelize {
         database: "mysql"
       })
       await mainConnection.execute(`CREATE DATABASE IF NOT EXISTS ${settings.database.name}`);
-      await mainConnection.end()
     }catch (err) { 
       console.log("Error While Creating Database : ", err.toString());
       // exit the app
       process.exit(1);
+    }
+    finally{
+      if (mainConnection) { 
+        await mainConnection.end()
+      }
     }
  
   }
