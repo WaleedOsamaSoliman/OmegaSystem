@@ -27,7 +27,7 @@ const main = async () => {
   //the line below make the server.listen work only when u run the server.js directly [node server.js] not when u import it
   if (require.main === module) {
     server.listen(settings.backend.port, () => {
-      console.log(`[+] Server now running on port : ${settings.backend.port}`);
+      console.log(`[+] Server now running on http://127.0.0.1:${settings.backend.port}`);
     });
   }
 
