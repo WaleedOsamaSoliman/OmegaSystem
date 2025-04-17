@@ -1,5 +1,6 @@
 const { Sequelize: S, DataTypes, DATE } = require("sequelize");
 const settings = require("../config/settings");
+const mysql = require("mysql2/promise")
 
 const permessionsList = require("./permessions");
 const dbTables = require("./dbTables");
@@ -23,7 +24,28 @@ class Sequelize {
     }
   }
 
+  async createDatabase() { 
+    try { 
+      const mainConnection =  await mysql.createConnection({
+        host : settings.database.host , 
+        port : settings.database.port , 
+        user : settings.database.user , 
+        password : settings.database.pass,
+        database: "mysql"
+      })
+      await mainConnection.execute(`CREATE DATABASE IF NOT EXISTS ${settings.database.name}`);
+      await mainConnection.end()
+    }catch (err) { 
+      console.log("Error While Creating Database : ", err.toString());
+      // exit the app
+      process.exit(1);
+    }
+ 
+  }
   async defineTables() {
+
+    // create the database First 
+    await this.createDatabase()
     // automatic define all table
 
     const tablesNames = Object.keys(dbTables);

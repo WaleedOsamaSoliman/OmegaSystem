@@ -13,12 +13,12 @@ const checkConnection = async () => {
   const isConnected = await connection.isConnected();
 
   if (!isConnected.state) {
-    console.log("Database not connected ...");
-    console.log("! >> ", isConnected.reason);
+    if (isConnected.reason === "Error")  console.log(`[!] database "${settings.database.type}" service not Running on Port ${settings.database.port} , Please Run the Service and try again ...`);
+    else console.log(`[!] Database Connection Failed : ${isConnected.reason}`);
     process.exit(1);
   }
 
-  console.log("database connected Succesfully ...");
+  console.log(`[+] database ${settings.database.type} service Successfully Running on Port ${settings.database.port} `);
 };
 
 const main = async () => {
@@ -27,7 +27,7 @@ const main = async () => {
   //the line below make the server.listen work only when u run the server.js directly [node server.js] not when u import it
   if (require.main === module) {
     server.listen(settings.backend.port, () => {
-      console.log(`Server now running on port : ${settings.backend.port}`);
+      console.log(`[+] Server now running on port : ${settings.backend.port}`);
     });
   }
 

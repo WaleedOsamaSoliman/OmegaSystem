@@ -8,9 +8,12 @@ const config = {
   },
   database: {
     type: "mysql",
-    name: "test",
+    name: "omega",
     host: "localhost",
     port: 3306,
+
+
+    // modify user and password of mysql server .... 
     user: "omega",
     pass: "123123",
   },
