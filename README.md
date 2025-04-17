@@ -25,7 +25,7 @@ Install Server Requirments
 Install SQL Server 
 
 - download  the latest version of :
-[ Mariadb ](#https://mariadb.org/download/)
+[ Mariadb ](https://mariadb.org/download/)
 - install it 
 - run the server
   
