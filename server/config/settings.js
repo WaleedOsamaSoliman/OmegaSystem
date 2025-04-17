@@ -13,9 +13,8 @@ const config = {
     port: 3306,
 
 
-    // modify user and password of mysql server .... 
-    user: "omega",
-    pass: "123123",
+    user: "omega", // add your mysql user here
+    pass: "123123", // add your mysql password here
   },
 };
 module.exports = config;
