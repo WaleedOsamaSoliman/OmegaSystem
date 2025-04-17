@@ -23,12 +23,22 @@ Install Server Requirments
 ```
     
 Install SQL Server 
--
+
 - download  the latest version of :
 [ Mariadb ](#https://mariadb.org/download/)
 - install it 
-- run the server 
+- run the server
+  
 
+# Create the Database Structure 
+```bash
+    cd ./server/config
+```
+- edit settings.js file  and set your mysql server user and password 
+```bash
+    cd ./server/init
+    node createDatabaseTables.js
+```
 # Run the Application : 
 
 ```bash
