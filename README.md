@@ -1,5 +1,5 @@
 
-# (OMEGA ERP ) System for pharmacies
+# (OMEGA) ERP system for pharmacies
 
 A brief description of what this project does and who it's for
 
