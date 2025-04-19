@@ -1,12 +1,14 @@
 const connection = require("../../init/database")
 class AddUser { 
-    constructor(userData) { 
+    constructor(userData  ) { 
         this.data = userData 
+     
     }
 
 
 
     async add () { 
+
 
         // confirm the username  and nickname availability 
         

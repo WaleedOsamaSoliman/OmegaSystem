@@ -2,9 +2,7 @@ import {
   Form,
   SelectPicker,
   TagInput,
-  Button,
-  ButtonGroup,
-  Schema,
+
 } from "rsuite";
 
 import { useContext } from "react";
@@ -51,10 +49,8 @@ export default function PersonalInfoTab() {
           onClean={() => {
             setInfo({ ...info, gender: preload.gender });
           }}
-          onSelect={(e) => {
-            setInfo(() => {
-              setInfo({ ...info, gender: e });
-            });
+          onSelect={(e)=>{
+            setInfo({...info , gender : e})
           }}
           data={[
             { label: "ذكر", value: "m" },

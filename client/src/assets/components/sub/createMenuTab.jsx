@@ -11,6 +11,11 @@ export default function  CreateMenuTab({    name  , label = "غير معروف" 
         return item.class === name  && item.inmenu === 1 
     })
 
+    if (filtered.length === 0 && name !== "app") { 
+        return (
+            <></>
+        )
+    }
    
     const generalItems = [
         <Dropdown.Item
@@ -43,21 +48,21 @@ export default function  CreateMenuTab({    name  , label = "غير معروف" 
 
         let Children =[];
         return (
-<Dropdown.Menu style={{ right: "100%" }} title= {Object.keys(subTitles).includes(classItem)? subTitles[classItem]: classItem}>
+            <Dropdown.Menu style={{ right: "100%" }} title= {Object.keys(subTitles).includes(classItem)? subTitles[classItem]: classItem}>
        
             {
-                subItems.filter((item)=>{return item.subclass === classItem}).map((item) =>{
-                    Children.push (
-                        <Dropdown.Item href = {item.href} shortcut = {item.shortcut} key={item.name}>
-                            {item.title}
-                        </Dropdown.Item>
-                    )
-                })
-          
+                    subItems.filter((item)=>{return item.subclass === classItem}).map((item) =>{
+                        Children.push (
+                            <Dropdown.Item onClick = {()=>{window.open(`#/${item.href}`, "_blank")}}  href = {item.href} shortcut = {item.shortcut} key={item.name}>
+                                {item.title}
+                            </Dropdown.Item>
+                        )
+                    })
+            
+                }
+            {
+            Children.map((item)=>{return item})
             }
-          {
-           Children.map((item)=>{return item})
-          }
 </Dropdown.Menu >
         ) 
     })
@@ -78,7 +83,7 @@ export default function  CreateMenuTab({    name  , label = "غير معروف" 
 
                 {mainItems.map((item)=>{
                     return (
-                        <Dropdown.Item href = {item.href} shortcut = {item.shortcut} key={item.name}>
+                        <Dropdown.Item onClick = {()=>{window.open(`#/${item.href}` , "_blank")}} href = {item.href} shortcut = {item.shortcut} key={item.name}>
                             {item.title}
                         </Dropdown.Item>
                     )

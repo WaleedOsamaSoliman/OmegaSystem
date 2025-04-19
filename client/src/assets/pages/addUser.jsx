@@ -1,26 +1,32 @@
 import { Tabs , Button, ButtonGroup, Message, useToaster } from "rsuite";
+import {HashRouter , useNavigate} from "react-router"
 import PersonalInfoTab from "@components/addUser/PersonalInfo";
 import LoginInfoTab from "@components/addUser/loginInfo";
 import PermessionsTab from "@components/addUser/permessions.jsx";
 import Context from "@context/addUser";
 import { useState } from "react";
-import Notification from "@components/sub/notification";
-
 import Confirm from "@actions/confirmAddUserSubmit";
-
 import preloadObj from "@preload/addUser";
 import axios from "axios";
 
 export default function AddUser() {
+  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState(1);
   const toaster = useToaster();  
   const [preload, setPreload] = useState(
     JSON.parse(JSON.stringify(preloadObj))
   );
+  const messageOptions = {duration : 5000 , placement : "topCenter"}
 
+  const [disableAction , setDisableAction] = useState(false)
 
 
   const addUserHandle = ()=>{
+    setDisableAction(true)
+    const i  = setTimeout(()=>{
+      setDisableAction(false)
+    } , 2000)
+
 
     const confirming = new Confirm(preload, [
       "nickname",
@@ -69,10 +75,12 @@ export default function AddUser() {
             break;
         }
          setActiveTab(switchToTab)
-          return toaster.push(<Notification type = "error" message = {`${field} مطلوب`} /> , {duration : 5000} )
+        
+          return toaster.push(<Message bordered showIcon  closable type = "error"><strong>{field} مطلوب</strong></Message> , messageOptions)
+           
       }
     if (!res.state && res.reason === "password.not.match")  { 
-      return toaster.push(<Notification type = "error" message = {`كلمة المرور غير متطابقة`} /> , {duration : 5000} )
+      return toaster.push(<Message bordered showIcon  closable type = "error"><strong>كلمة المرور غير متطابقة</strong></Message>, messageOptions)
     }
 
     
@@ -80,21 +88,23 @@ export default function AddUser() {
     axios.post("/api/v1/account/add" , preload)
     .then((res)=>{
       console.log(res.data)
-      if (! res.data.state && res.data.reason === "username.exists") return toaster.push(<Notification type = "warning" message = {`اسم المستخدم موجود ب الفعل`} /> , {duration : 3000} )
-      if (! res.data.state && res.data.reason === "nickname.exists") return toaster.push(<Notification type = "warning" message = {`الاسم بالكامل موجود ب الفعل`} /> , {duration : 3000} )
+      if (! res.data.state && res.data.reason === "username.exists") return toaster.push(<Message bordered showIcon  closable type = "error"><strong>اسم المستخدم موجود ب الفعل</strong></Message>  , messageOptions)
+      if (! res.data.state && res.data.reason === "nickname.exists") return toaster.push(<Message bordered showIcon  closable type = "error"><strong>الاسم بالكامل موجود ب الفعل</strong></Message> , messageOptions )
       if (res.data.state) {
         // reset the preload
-        toaster.push(<Notification header = "تمت انشاء مستخدم جديد بنجــاح" category = "notification" type = "success" message = {`أهلا ومرحبا بك يا ${preload.nickname.split(" ")[0]} في أوميجــا سيستم` } /> , {duration : 3000} )
+        toaster.push(<Message bordered showIcon   type = "success"><strong>تم إنشــاء المستخدم بنجـــاح</strong></Message> , messageOptions)
+        navigate("/home" , {replace : true})
         setPreload(JSON.parse(JSON.stringify(preloadObj)))
         setActiveTab(1)
         return
       }
 
-      return toaster.push(<Notification type = "error" message = {res.data.reason} /> , {duration : 3000} )
+      return   toaster.push(<Message bordered showIcon  closable type = "error"><strong>{res.data.reason} </strong></Message> , messageOptions) 
+
 
     })
     .catch ((err)=>{
-        return toaster.push(<Notification type = "error" message = {err.toString()} /> )
+        return toaster.push(<Message bordered showIcon  closable type = "error"><strong>{err.toString()} </strong></Message> , messageOptions)
       })
       .finally(()=>{
       })
@@ -142,7 +152,7 @@ export default function AddUser() {
             style={{ width: 200 }}
             appearance={"primary"}
             color={"cyan"}
-            // disabled ={disableSaveBtn}
+            disabled ={disableAction}
             onClick={()=>{addUserHandle()}}>
             حفظ
           </Button>
