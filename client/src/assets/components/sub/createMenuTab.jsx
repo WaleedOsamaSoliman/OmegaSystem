@@ -22,7 +22,7 @@ export default function  CreateMenuTab({    name  , label = "غير معروف" 
         onClick={async () => {
           setMainState((e) => {
             const updated = JSON.parse(JSON.stringify(e));
-            updated.modals.logout = true;
+            updated.modal = "logout";
             return updated;
           });
         }}

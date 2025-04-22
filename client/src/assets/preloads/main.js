@@ -2,9 +2,7 @@ const preload = {
   theme: "light",
   is_logged: false,
   user: {},
-  modals: {
-    logout: false,
-  },
+  modal : null,
   organization: {},
 };
 Object.freeze(preload);

@@ -3,16 +3,17 @@ import { useContext } from "react";
 import mainContext from "../context/main";
 import logout from "../actions/logout";
 const LogOut = () => {
-  const [mainData, setMainData] = useContext(mainContext);
+  const [, setMainData] = useContext(mainContext);
   const toaster = useToaster();
   const handleClose = () => {
     setMainData((e) => {
       const updated = JSON.parse(JSON.stringify(e));
-      updated.modals.logout = false;
+      updated.modal = null;
       return updated;
     });
   };
   return (
+    
     <Modal
       style={{ direction: "rtl" }}
       backdrop={true}

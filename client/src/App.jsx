@@ -5,9 +5,8 @@ import Router from "@components/router.jsx";
 import FooterComponent from "@components/footer.jsx";
 import LoginPage from "@pages/login.jsx";
 import { useEffect, useState } from "react";
-import Cookies from "js-cookie";
+import PortableModal from "@components/PortableModal.jsx"
 import { Container, Content, Footer, Divider } from "rsuite";
-import Logout from "./assets/components/logout";
 
 import axios from "axios";
 
@@ -56,7 +55,6 @@ export default function App() {
   const LoggedComponents = () => {
     return (
       <>
-        {preload.modals.logout ? <Logout /> : null}
         <Menu />
         <Content style={{ padding: 10 }}>
           <Router />
@@ -75,6 +73,7 @@ export default function App() {
         {preload.is_logged ? <LoggedComponents /> : <LoginPage />} 
         {/* <LoggedComponents /> */}
       </Container>
+      <PortableModal/>
     </Context.Provider>
   );
 }
