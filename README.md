@@ -45,4 +45,8 @@ Install SQL Server
     cd ./server
     node server.js
 ```
+# ScreenShots for Completed Parts :
 [![screenshot.png](https://i.postimg.cc/SN1c57FQ/omega1.png)](https://postimg.cc/0bm6KSyh)
+[![omega2.png](https://i.postimg.cc/6pG4mkfz/omega2.png)](https://postimg.cc/qN47tZYC)
+[![omega3.png](https://i.postimg.cc/q7shk2Y3/omega3.png)](https://postimg.cc/p9dXC5PW)
+[![omega4.png](https://i.postimg.cc/fyJR0dH5/omega4.png)](https://postimg.cc/D43T9S3b)
