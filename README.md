@@ -45,4 +45,4 @@ Install SQL Server
     cd ./server
     node server.js
 ```
-    
+[![screenshot.png](https://i.postimg.cc/SN1c57FQ/omega1.png)](https://postimg.cc/0bm6KSyh)
